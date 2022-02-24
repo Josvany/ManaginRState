@@ -6,6 +6,7 @@ import Products from "./Products";
 import { Routes, Route } from "react-router-dom";
 import Detail from "./Details";
 import Cart from "./Cart";
+import Checkout from "./Checkout";
 
 
 export default function App() {
@@ -54,6 +55,11 @@ export default function App() {
     });
   }
 
+  function emptyCart()
+  {
+    setCart([]);
+  }
+
   return (
     <>
       <div className="content">
@@ -64,6 +70,7 @@ export default function App() {
             <Route path="/:category" element={<Products />} />
             <Route path="/:category/:id" element={<Detail addToCart={addToCart}  />} />
             <Route path="/cart" element={<Cart cart={cart}  updateQuantity={updateQuantity}/>} />
+            <Route path="/checkout" element={<Checkout cart={Cart} emptyCart={emptyCart} />} />
           </Routes>
         </main>
       </div>
