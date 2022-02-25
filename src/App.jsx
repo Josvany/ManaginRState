@@ -8,6 +8,8 @@ import Detail from "./Details";
 import Cart from "./Cart";
 import Checkout from "./Checkout";
 import cartReducer from "./CartReducer";
+import { cartContext } from './cartContext';
+
 
 let initialCart;
 
@@ -29,7 +31,7 @@ export default function App() {
   useEffect(() => localStorage.setItem("cart", JSON.stringify(cart)), [cart]);  
 
   return (
-    <>
+    <cartContext.Provider value={{cart, dispatch}}>
       <div className="content">
         <Header />
         <main>
@@ -37,12 +39,12 @@ export default function App() {
             <Route path="/" element={<h1> Welcome </h1>} />
             <Route path="/:category" element={<Products />} />
             <Route path="/:category/:id" element={<Detail dispatch={dispatch}  />} />
-            <Route path="/cart" element={<Cart cart={cart}  dispatch={dispatch}/>} />
+            <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<Checkout cart={Cart} dispatch={dispatch} />} />
           </Routes>
         </main>
       </div>
       <Footer />
-    </>
+    </cartContext.Provider>
   );
 }
